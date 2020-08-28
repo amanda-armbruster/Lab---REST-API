@@ -49,4 +49,23 @@ routes.post("/cart-items", (req, res) => {
   res.json(newItem);
 });
 
+routes.put("/cart-items/:id", (req, res) => {
+  let id = req.params.id;
+  let index = items.findIndex((item) => {
+    return item.id === id;
+  });
+  items[index] = req.body;
+  res.status(200);
+  res.json(items[index]);
+});
+
+routes.delete("/cart-items/:id", (req, res) => {
+  let id = parseInt(req.params.id);
+  let index = items.findIndex((item) => {
+    return item.id === id;
+  });
+  items.splice(index, 1);
+  res.sendStatus(204);
+});
+
 module.exports = { routes };
